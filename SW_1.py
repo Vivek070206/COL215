@@ -1,4 +1,5 @@
 from itertools import permutations
+import copy
 
 
 def parse_file_to_list(file_path):
@@ -19,6 +20,22 @@ main_rectangles = parse_file_to_list(file_path)
 
 # Sort the list by width first, then by height
 main_rectangles.sort()
+
+def get_rectangle(rectangle, skyline, output, w):
+
+    l = 0
+    r = len(rectangle) - 1
+    result = -1
+    while(l <= r):
+        mid = (l+r)//2
+        
+        if(rectangle[mid] <= w):
+            l = mid + 1
+            result = mid
+        else:
+            r = mid - 1
+
+
 
 
 def skyline_placement(rectangles, W):
@@ -64,3 +81,20 @@ def find_best_placement(rectangles):
             best_height = height
 
     return best_placement, best_width, best_height
+
+
+
+w_min = main_rectangles[0][0]
+w_max = sum(main_rectangles[i][0] for i in range(len(main_rectangles)))
+
+rectangles = copy.deepcopy(main_rectangles)
+best_height = -1
+best_width = -1
+best_area = -1
+best_cordinate = []
+
+
+for w in range(w_min, w_max):
+    h = 0
+    area = 0
+    cordinate = []
