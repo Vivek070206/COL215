@@ -29,7 +29,7 @@ def get_rectangle(rectangle, skyline, output, w):
     while(l <= r):
         mid = (l+r)//2
         
-        if(rectangle[mid] <= w):
+        if(rectangle[mid][0] <= w):
             l = mid + 1
             result = mid
         else:
